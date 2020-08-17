@@ -28,10 +28,4 @@ class HomeController extends Controller
         $myPost = $this->postService->getMyPost();
         return view('admin.dashboard', compact('myPost'));
     }
-
-    public function profile()
-    {
-        return view('admin.profile');
-    }
-
 }

@@ -16,7 +16,7 @@
   <link href="{{ asset('assets/demo/demo.css') }}" rel="stylesheet" />
   <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}"/>
 
-
+  
 </head>
 
 <body>

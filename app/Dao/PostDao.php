@@ -34,6 +34,13 @@ class PostDao implements PostDaoInterface
             ->paginate(6);
     }
 
+    public function getMostRead(){
+        return Post::select('posts.*')
+            ->orderBy('view', 'desc')
+            ->limit(4)
+            ->get();
+    }
+
     public function getWebPost()
     {
         return Post::select('posts.*', 'users.name')
@@ -101,4 +108,28 @@ class PostDao implements PostDaoInterface
             ]);
     }
 
+    public function getPostById($id)
+    {
+        return Post::select('posts.*', 'users.name')
+            ->join('users', 'posts.user_id', 'users.id')
+            ->where('post_id', $id)
+            ->first();
+    }
+
+    public function updatePost($request,$id)
+    {
+        Post::where('post_id', $id)
+            ->update([
+                'title' => $request->title,
+                'category' => $request->category,
+                'content' => $request->content,
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+    }
+
+    public function deletePost($id)
+    {
+        Post::where('post_id', $id)
+            ->delete();
+    }
 }

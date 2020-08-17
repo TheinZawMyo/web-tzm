@@ -15,4 +15,8 @@ interface PostServiceInterface
     public function getPrevious($id);
     public function getNext($id);
     public function updateView($view_count, $id);
+    public function getPostById($id);
+    public function updatePost($request, $id);
+    public function deletePost($id);
+    public function getMostRead();
 }

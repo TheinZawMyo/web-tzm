@@ -79,13 +79,13 @@
       </div>
     </div>
     <div class="row">
-      @if(count($myPost) == 0)
-      <h3 class="text-center">Congratulations. You are now member of <span
-          class="text-danger font-weight-bold">Share</span><span class="text-success font-weight-bold">IT</span>.
-        Promote your skills by sharing knowledge in <span class="text-danger font-weight-bold">Share</span><span
-          class="text-success font-weight-bold">IT</span>. Let's go.</h3><br>
-      <img src="{{ asset('img/smile.gif') }}" alt="smile" width="150px" height="150px">
-      @endif
+      <div class="col-md-12">
+        @if(count($myPost) == 0)
+        <!-- <h3>There is no post! Promote your skills by sharing knowledge.</h3>
+        <img src="{{ asset('img/smile.gif') }}" alt="smile" width="150px" height="150px"> -->
+        <h3 class="text-center">No Posts Available!</h3>
+        @endif
+      </div>
       @foreach ($myPost as $post)
       <div class="col-xl-4 col-lg-12">
         <div class="card card-chart h-75">
@@ -106,11 +106,10 @@
               @else
               {{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
               @endif
-
             </div>
             <div class="float-right">
-              <a href="#" class="text-success"><i class="material-icons">edit</i></a>
-              <a href="#" class="text-danger"><i class="material-icons">delete</i></a>
+              <a href="{{ url('user/edit', encrypt($post->post_id)) }}" class="text-success"><i class="material-icons">edit</i></a>
+              <a href="{{ url('user/delete', encrypt($post->post_id)) }}" class="text-danger" onclick="return confirm('Are you sure to delete this post')"><i class="material-icons">delete</i></a>
             </div>
           </div>
         </div>

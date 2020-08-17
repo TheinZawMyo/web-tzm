@@ -6,24 +6,33 @@
     <div class="row">
       <div class="col-md-9">
         @if($detail)
-        <h3>{{ $detail->title}} </h3>
+        <h2>{{ $detail->title}} </h2>
+        <hr>
         <p>
           {!! $detail->content !!}
         </p>
+        {{ Form::hidden('id', $detail->id, ['class' => 'hidden_id']) }}
         <hr>
-        {{-- <div class="row card">
+        <div class="row card m-1">
           <div class="col-md-12 p-3">
-            <i class="material-icons">access_time</i>
-            @if($detail->updated_at)
-            {{ Carbon\Carbon::parse($detail->updated_at)->diffForHumans() }}
-        @else
-        {{ Carbon\Carbon::parse($detail->created_at)->diffForHumans() }}
-        @endif
-        &nbsp;&nbsp;&nbsp;
-        <i class="material-icons">person</i> {{ $detail->name }}&nbsp;&nbsp;&nbsp;
-        <i class="material-icons">remove_red_eye</i> {{ $detail->view > 1 ? $detail->view : 'no view' }}
+            <div class="row">
+              <div class="col-md-3 col-sm-2">
+              <i class="material-icons">access_time</i>
+                @if($detail->updated_at)
+                {{ Carbon\Carbon::parse($detail->updated_at)->diffForHumans() }}
+                @else
+                {{ Carbon\Carbon::parse($detail->created_at)->diffForHumans() }}
+                @endif
+              </div>
+              <div class="col-md-3 col-sm-3">
+                <i class="material-icons">person</i> {{ $detail->name }}&nbsp;&nbsp;&nbsp;
+              </div>
+              <div class="col-md-2 col-sm-2">
+                <i class="material-icons like-btn" style="cursor:pointer">thumb_up</i> {{ $detail->view > 1 ? $detail->view : 'no view' }} Users
+              </div>
+            </div>         
       </div>
-    </div> --}}
+    </div>
     @endif
     <hr>
     <div class="row">
@@ -82,9 +91,25 @@
     </div>
   </div>
   <div class="col-md-3">
-    
+    <!-- <button class="btn btn-primary">CLick</button> -->
   </div>
 </div>
 </div>
 </div>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$('.btn').click(function(){
+    alert('helo');
+    let post_id = $('.hidden_id').val();
+    $.ajax({
+        type : 'POST',
+        url : route('liking'),
+        dataType : 'json',
+        data : {post_id: post_id}
+        error: function(data){
+            alert(data);
+        }
+    });
+});
+</script>
